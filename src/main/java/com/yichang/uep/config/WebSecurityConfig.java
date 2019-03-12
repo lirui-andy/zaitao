@@ -13,8 +13,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.yichang.uep.service.UepUserDetailsService;
 
-//@Configuration
-//@EnableWebSecurity
+@Configuration
+@EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
@@ -23,23 +23,27 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	UepUserDetailsService userService;
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http
-		.csrf()
-			.disable()
+		http.csrf().disable()
 		.authorizeRequests()
-			.antMatchers("/","/home","/**/*.css", "/**/*.js","/**/*.ico",
-					"/bower_components/**/*","/dist/**/*","/js/**/*",
-					"node_modules/**/*","/plugins/**/*","/**/*.png","/**/*.exe","/**/*.zip","/**/*.rar").permitAll()
-			.anyRequest().authenticated()
-			.and()
-		.formLogin()
-			.loginPage("/login")
-			.defaultSuccessUrl("/list")
-			.permitAll()
-			.and()
-		.logout()
-			.permitAll()
-		;
+		.anyRequest()
+		.permitAll();
+//		http
+//		.csrf()
+//			.disable()
+//		.authorizeRequests()
+//			.antMatchers("/","/home","/**/*.css", "/**/*.js","/**/*.ico",
+//					"/bower_components/**/*","/dist/**/*","/js/**/*",
+//					"node_modules/**/*","/plugins/**/*","/**/*.png","/**/*.exe","/**/*.zip","/**/*.rar").permitAll()
+//			.anyRequest().authenticated()
+//			.and()
+//		.formLogin()
+//			.loginPage("/login")
+//			.defaultSuccessUrl("/list")
+//			.permitAll()
+//			.and()
+//		.logout()
+//			.permitAll()
+//		;
 	}
 
 
