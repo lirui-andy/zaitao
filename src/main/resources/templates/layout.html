@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html  xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" 
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head th:fragement="head">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  
+	<meta name="_csrf" th:content="${_csrf?.token}"/>
+	<meta name="_csrf_header" th:content="${_csrf?.headerName}"/>
+	  
+  <title>未知名尸体处置及落水失踪人员</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+<link rel="shortcut icon" th:href="@{/dist/img/ico.png}" />
+
+  <link rel="stylesheet" th:href="@{/bower_components/bootstrap/dist/css/bootstrap.min.css}">
+  <link rel="stylesheet" th:href="@{/bower_components/font-awesome/css/font-awesome.min.css}">
+  <link rel="stylesheet" th:href="@{/bower_components/bootstrap-daterangepicker/daterangepicker.css}">
+  <link rel="stylesheet" th:href="@{/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css}">
+  <link rel="stylesheet" th:href="@{/plugins/iCheck/all.css}">
+  <link rel="stylesheet" th:href="@{/plugins/timepicker/bootstrap-timepicker.min.css}">
+  <link rel="stylesheet" th:href="@{/bower_components/select2/dist/css/select2.min.css}">
+  <link rel="stylesheet" th:href="@{/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css}">
+  <link rel="stylesheet" th:href="@{/dist/css/AdminLTE.css}">
+  <link rel="stylesheet" th:href="@{/dist/css/skins/skin-blue.min.css}">
+  
+  <link rel="stylesheet" th:href="@{/dist/css/custom.css}">
+
+<!--[if lt IE 9]>
+  <script th:src="@{/dist/js/html5shiv.min.js}"></script>
+  <script th:src="@{/dist/js/respond.js}"></script>
+  <![endif]-->
+
+  <!-- Google Font -->
+<!--   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic"> -->
+
+<script th:src="@{/bower_components/jquery/dist/jquery.min.js}"></script>
+<script th:src="@{/bower_components/bootstrap/dist/js/bootstrap.min.js}"></script>
+<script th:src="@{/bower_components/jquery-slimscroll/jquery.slimscroll.min.js}"></script>
+<script th:src="@{/bower_components/fastclick/lib/fastclick.js}"></script>
+<script th:src="@{/plugins/input-mask/jquery.inputmask.js}"></script>
+<script th:src="@{/plugins/input-mask/jquery.inputmask.date.extensions.js}"></script>
+<script th:src="@{/bower_components/datatables.net/js/jquery.dataTables.min.js}"></script>
+<script th:src="@{/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js}"></script>
+<script th:src="@{/bower_components/moment/min/moment.min.js}"></script>
+<script th:src="@{/bower_components/bootstrap-daterangepicker/daterangepicker.js}"></script>
+<script th:src="@{/plugins/timepicker/bootstrap-timepicker.min.js}"></script>
+<script th:src="@{/plugins/iCheck/icheck.min.js}"></script>
+<script th:src="@{/bower_components/jquery-validation/dist/jquery.validate.min.js}"></script>
+
+<script th:src="@{/dist/js/const.js}"></script>
+<script th:src="@{/dist/js/uep.js}"></script>
+<script th:src="@{/dist/js/eventList.js}"></script>
+<script th:src="@{/dist/js/eventManage.js}"></script>
+</head>
+<!-- ADD THE CLASS layout-top-nav TO REMOVE THE SIDEBAR. -->
+<body class="hold-transition skin-blue layout-top-nav theme1">
+<div class="wrapper">
+
+  <header class="main-header" th:fragment="mainHeader">
+    <nav class="navbar navbar-static-top">
+      <div class="container">
+        <div class="navbar-header">
+          <div class="navbar-brand"><b>宜昌分局长江未知名尸体处置及落水失踪人员信息共享平台</b></div>
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
+            <i class="fa fa-bars"></i>
+          </button>
+        </div>
+		<div class="clearfix"></div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse pull-right" id="navbar-collapse" >
+          <ul class="nav navbar-nav">
+            <li data-eventType=""><a href="/list?t=0">首页</a></li>
+            <li data-eventType="1"><a href="/list?t=1">未知名尸体</a></li>
+            <li data-eventType="2"><a href="/list?t=2">落水失踪人员</a></li>
+            <li data-eventType="3"><a href="/list?t=3">疑似落水失踪人员</a></li>
+            <li data-eventType="4"><a href="/list?t=4">外单位协查</a></li>
+            <li th:if="${#authorization.expression('hasRole(''ROLE_EVENT_MAN'')')}"><a href="/event-manage">数据管理</a></li>
+            <li ><a href="javascript:$('#logout').submit();">登出</a></li>
+          </ul>
+          <!--
+          <form class="navbar-form navbar-left" role="search">
+            <div class="form-group">
+              <input type="text" class="form-control" id="navbar-search-input" placeholder="Search">
+            </div>
+          </form>
+        -->
+        </div>
+        <!-- /.navbar-collapse -->
+        <!-- Navbar Right Menu -->
+        
+      </div>
+      <!-- /.container-fluid -->
+    </nav>
+  </header>
+  <!-- Full Width Column -->
+  <div class="content-wrapper">
+    <div class="container">
+      <!-- Content Header (Page header) -->
+      <section class="content-header" th:fragment="contentHeader">
+        <div class="pull-left small" id="navbar-widescreen">          <ul class="nav navbar-nav">
+            <li data-eventType=""><a href="/list?t=0">首页</a></li>
+            <li data-eventType="1"><a href="/list?t=1">未知名尸体</a></li>
+            <li data-eventType="2"><a href="/list?t=2">落水失踪人员</a></li>
+            <li data-eventType="3"><a href="/list?t=3">疑似落水失踪人员</a></li>
+            <li data-eventType="4"><a href="/list?t=4">外单位协查</a></li>
+            
+            <li th:if="${#authorization.expression('hasRole(''ROLE_EVENT_MAN'')')}"><a href="/event-manage">数据管理</a></li>
+            <li ><a href="javascript:$('#logout').submit();">登出</a><form class="form-inline" th:action="@{/logout}" method="POST" id="logout"></form></li>
+          </ul>
+        
+        </div>  
+        <div class="pull-right">
+            <small th:inline="text">登录单位：[[${#authorization.authentication.principal.orgName}]]</small>
+            <small th:inline="text"> <a th:href="@{/user/changepwd}">修改密码</a></small>
+        </div>
+        <div class="clearfix"></div>
+      </section>
+
+      <!-- Main content -->
+      <section class="content">
+        <div class="box box-info"> 
+          <div class="box-header with-border">
+            <h3 class="box-title">Title</h3>
+          </div>         
+          <!-- /.box-header -->
+          <div class="box-body">
+            body
+          </div>
+          <div class="box-footer clearfix">
+            footer
+          </div>
+        </div>
+        <!-- /.box -->
+      </section>
+      <!-- /.content -->
+    </div>
+    <!-- /.container -->
+  </div>
+  <!-- /.content-wrapper -->
+  <footer class="main-footer" th:fragment="footer">
+    <div class="container">
+      <div class="pull-right hidden-xs">
+        <b>Version</b> 1.0.0
+      </div>
+      <strong>Copyright &copy; 2018 <a href="javascript:">宜昌分局</a>.</strong> 版权所有
+    </div>
+    <!-- /.container -->
+  </footer>
+</div>
+<!-- ./wrapper -->
+
+</body>
+</html>

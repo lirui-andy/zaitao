@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+    <head>
+        <title>Hello World!</title>
+        <script type="text/javascript" th:src="@{/jquery.js}"></script>
+    </head>
+    <body>
+        <h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!
+        [[${#authorization.expression('hasRole("ROLE_USER")')}]]
+        </h1>
+        <div th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}">
+        	HAS USER ROLE
+        </div>
+        <div th:unless="${#authorization.expression('hasRole(''ROLE_110'')')}">
+        	NOT HAS 110 ROLE
+        </div>
+        
+Logged user: <span sec:authentication="name">Bob</span>
+Roles: <span sec:authentication="principal.authorities">[ROLE_USER, ROLE_ADMIN]</span>
+        <span sec:authentication="principal">[ROLE_USER, ROLE_ADMIN]</span>
+<div sec:authorize="hasAuthority('ROLE_USER')">
+  This content is only shown to users.
+</div>
+        
+        <form th:action="@{/event/save}" method="post" enctype="multipart/form-data">
+        	<input type="file" name="file"/><br/>
+        	事件类型：<select name="eventType"></select><br/>
+        	处警民警：<input type="text" name="handler"/><br/>
+        	<input type="submit" value="upload"/>
+        </form>
+        
+        <form th:action="@{/logout}" method="post">
+            <input type="submit" value="Sign Out"/>
+        </form>
+    </body>
+</html>

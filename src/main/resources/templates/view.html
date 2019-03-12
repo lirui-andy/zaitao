@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head th:replace="layout::head">
+</head>
+<!-- ADD THE CLASS layout-top-nav TO REMOVE THE SIDEBAR. -->
+<body class="hold-transition skin-blue layout-top-nav theme2">
+<script type="text/javascript" th:src=@{/dist/js/eventView.js}></script>
+
+<script th:src="@{/bower_components/viewerjs/dist/viewer.js}"></script><!-- Viewer.js is required -->
+<link  th:href="@{/bower_components/viewerjs/dist/viewer.css}" rel="stylesheet">
+<script th:src="@{/bower_components/jquery-viewer/dist/jquery-viewer.js}"></script>
+
+	<div th:replace="sign"></div>
+
+	<div class="wrapper">
+
+		<header th:replace="layout::mainHeader"> </header>
+		<!-- Full Width Column -->
+		<div class="content-wrapper">
+			<div class="container">
+				<!-- Content Header (Page header) -->
+				<section th:replace="layout::contentHeader"></section>
+
+				<!-- Main content -->
+				<section class="content">
+					<div class="box box-info">
+						<div class="box-header with-border">
+							<h3 class="box-title">信息查看</h3>
+						</div>
+						<!-- /.box-header -->
+						<div class="box-body">
+						<form class="form" th:action="@{/event/update}" method="POST">
+							<input type="hidden" name="eventId" th:value="${event?.eventId}"/>
+							<div class="box-body">
+								<div class="form-horizontal">
+									<div class="form-group">
+										<label for="input1" class="col-md-2 control-label">类别</label>
+										<div class="col-md-4" >
+											<span id="input1" th:text="${event?.eventType}" class="form-control"
+											data-const data-constgroup="EVENT_TYPE" 
+											th:attr="data-constval=${event?.eventType}" ></span>
+										</div>
+	
+										<label for="input2" class="col-md-1 control-label">是否查清</label>
+										<div class="col-md-4" th:unless="${isAuthor}">
+											<span id="input2" data-const th:data-constVal="${comments?.get('EVENT_CHECKED_CLEAR')}" 
+												data-constGroup="EVENT_CHECKED_CLEAR"  class="form-control">
+											</span>
+										</div>
+										<div class="col-md-4" th:if="${isAuthor}" >
+											<input type="hidden" name="commentKey" value="EVENT_CHECKED_CLEAR">
+											<select id="input2" th:data-constVal="${comments?.get('EVENT_CHECKED_CLEAR')}" name="commentVal_EVENT_CHECKED_CLEAR" data-constGroup="EVENT_CHECKED_CLEAR" class="form-control no-padding">
+											</select>
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="input3" class="col-md-2 control-label">接警单位</label>
+										<div class="col-md-4">
+											<span id="input3" th:text="${event?.rcvOrgName}" class="form-control"></span>
+										</div>
+										<label for="input4" class="col-md-1 control-label">处警民警</label>
+										<div class="col-md-4">
+											<span  id="input4" th:text="${event?.handlerName}"  class="form-control"/>
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="input5" class="col-md-2 control-label">报警人</label>
+										<div class="col-md-4">
+											<span  id="input5" th:text="${event?.reportorName}" class="form-control"/>
+										</div>
+										<label for="input6" class="col-md-1 control-label">报警电话</label>
+										<div class="col-md-4">
+											<span  id="input6" th:text="${event?.reportorTel}" class="form-control"/>
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="input7" class="col-md-2 control-label">协查单位</label>
+										<div class="col-md-4">
+											<span id="input7" th:text="${event?.coOrgName}" class="form-control"></span>
+										</div>
+										
+										<label for="input8" class="col-md-1 control-label">联系人</label>
+										<div class="col-md-2">
+											<span id="input8" th:text="${event?.coOrgContact}" class="form-control"/>
+										</div>
+										<label for="input9" class="col-md-1 control-label">电话</label>
+										<div class="col-md-2">
+											<span id="input9" th:text="${event?.coOrgTel}" class="form-control"/>
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="input10" class="col-md-2 control-label">姓名</label>
+										<div class="col-md-4">
+											<span id="input10" th:text="${event?.name}" class="form-control"/>
+										</div>
+										
+										<label for="gender" class="col-md-1 control-label">性别</label>
+										<div class="col-md-2 ">
+											<span id="gender" th:data-constval="${event?.gender}" data-constGroup="GENDER" data-const class="form-control"/>
+										</div>
+										<label for="input12" class="col-md-1 control-label">事件时间</label>
+										<div class="col-md-2">
+											<span id="input12" th:text="${#dates.format(event?.eventTime, 'yyyy-MM-dd HH:mm')}" class="form-control"/>
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="input13" class="col-md-2 control-label">身份证号</label>
+										<div class="col-md-4">
+											<span id="input13" th:text="${event?.idNum}" class="form-control"/>
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="input14" class="col-md-2 control-label">图片</label>
+										<div class="col-md-9 form-control-static">
+										  <ul id="images" class="image-list">
+										    <li th:each="att:${images}"><img th:src="@{/event/attach/{u}(u=${att.attUri})}" th:alt="${att.fileName}">
+										    <span th:text="${att.fileName}"></span></li>
+										  </ul>
+										</div>
+									</div>		
+									<div class="form-group">
+										<label for="input14-1" class="col-md-2 control-label">附件</label>
+										<div class="col-md-9 form-control-static">
+										  <ul id="files" class="image-list">
+										    <li th:each="att:${files}"><a th:href="@{/event/attach/{u}(u=${att.attUri})}" th:title="${'点击下载附件 '+att.fileName}" th:text="${att.fileName}"></a></li>
+										  </ul>
+										</div>
+									</div>								
+								</div>
+								<div class="row">
+									<div class="form col-md-11 col-md-offset-1">
+										<div class="form-group">
+											<label for="input15" class="control-label">简要警情:</label>
+												<textarea th:text="${event?.briefInfo}" readonly id="input15" name="briefInfo" class="form-control" rows="3"></textarea>
+										</div>	
+										<div class="form-group">
+											<label for="input16" class="control-label">人员情况:</label>
+												<textarea th:text="${event?.detailInfo}" readonly id="input16" name="detailInfo" class="form-control" rows="3"></textarea>
+										</div>
+										<!-- 110备注 : 具备110权限时，可改-->
+										<div class="form-group">
+											<label for="" class="control-label">110备注:</label>
+											<input type="hidden" name="commentKey" value="EVENT_COMMENT_110" th:if="${#authorization.expression('hasRole(''ROLE_110'')')}">
+											<textarea th:readonly="${!#authorization.expression('hasRole(''ROLE_110'')')}" th:text="${comments?.get('EVENT_COMMENT_110')}" 
+												name="commentVal_EVENT_COMMENT_110" id="input18" class="form-control" rows="3"></textarea>
+										</div>	
+										<!-- 具备刑侦队权限：可改 -->
+										<div class="form-group">
+											<label for="input18" class="control-label">刑侦队备注:</label>
+											<input type="hidden" name="commentKey" value="EVENT_COMMENT_XZZD" th:if="${#authorization.expression('hasRole(''ROLE_XZD'')')}">
+											<textarea th:readonly="${!#authorization.expression('hasRole(''ROLE_XZD'')')}" th:text="${comments?.get('EVENT_COMMENT_XZZD')}" 
+												name="commentVal_EVENT_COMMENT_XZZD" id="input18" class="form-control" rows="3"></textarea>
+										</div>
+										<div class="form-group">
+											<label for="input19" class="control-label">派出所备注:</label>
+												<input type="hidden" name="commentKey" value="EVENT_COMMENT_PCS" th:if="${isAuthor}">
+												<textarea th:readonly="${!isAuthor}" th:text="${comments?.get('EVENT_COMMENT_PCS')}" 
+													name="commentVal_EVENT_COMMENT_PCS" id="input19" class="form-control" rows="3"></textarea>
+										</div>		
+									</div>
+								</div>
+								<div class="clearfix"></div>
+								<div class="form-horizontal">
+									<div class="form-group">
+										<label class="control-label col-md-1 col-md-offset-5" for="input20">录入人</label>
+										<div class="col-md-2 form-control-static">
+											<span id="input20" th:text="${event?.inputRealName}"/>
+										</div>
+										<label class="control-label col-md-1" for="input21">审核人</label>
+										<div class="col-md-2 form-control-static">
+											<span id="input21" th:text="${event?.reviewerName}"/>
+										</div>
+									</div>
+								</div>
+
+							</div>
+							<div class="box-footer clearfix">
+								<div class="row" th:if="${true == showSaveBtn}">
+									<input type="submit" value="保存" class="btn btn-primary col-md-1 col-md-offset-5"/>
+								</div>
+							</div>
+						</form>
+						</div>
+					</div>
+					<!-- /.box -->
+					
+					<div class="box box-solid">
+						<div class="box-body">
+								<div class="row">
+									<table id="receiptTable" class="table table-condensed no-padding">
+										<tbody>
+											<tr>
+												<th style="width:10rem;">&nbsp;</th>
+												<th>已签收单位</th>
+												<th>签收人</th>
+												<th>签收时间</th>
+												<th></th>
+											</tr>
+											<tr th:each="rcp:${receipts}">
+												<td></td>
+												<td th:text="${rcp.receiptOrgName}"></td>
+												<td th:text="${rcp.receiptUser}"></td>
+												<td th:text="${rcp.receiptTime}"></td>
+												<td></td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+						</div>
+					</div>
+				</section>
+				<!-- /.content -->
+			</div>
+			<!-- /.container -->
+		</div>
+		<!-- /.content-wrapper -->
+		<footer class="main-footer" th:replace="layout::footer"> </footer>
+	</div>
+	<!-- ./wrapper -->
+</body>
+</html>
