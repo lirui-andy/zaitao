@@ -1,16 +1,18 @@
 package com.yichang.uep.controller;
 
-import java.util.Collections;
-import java.util.List;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.Mapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.yichang.uep.dto.EventQueryVO;
+import com.yichang.uep.dto.datatables.PageAdapter;
+import com.yichang.uep.dto.datatables.RequestAdapter;
 import com.yichang.uep.model.YZtry;
+import com.yichang.uep.service.ZtryManage;
 
 /**
  * 
@@ -21,11 +23,14 @@ import com.yichang.uep.model.YZtry;
 @Controller
 @RequestMapping("ztry")
 public class ZtryController extends BaseController {
-
-	@GetMapping("/search")
+	
+	@Autowired
+	ZtryManage ztryManange;
+	
+	@PostMapping(path="/search", consumes={"text/plain", "application/json"})
 	@ResponseBody
-	public List<YZtry> search(){
-		
-		return Collections.EMPTY_LIST;
+	public PageAdapter<YZtry> search(@RequestBody RequestAdapter<EventQueryVO> searchParam){
+		Page<YZtry> page = ztryManange.findZtry(searchParam.getCondition(), searchParam.getPage());
+		return PageAdapter.create(page, searchParam.getDraw());
 	}
 }

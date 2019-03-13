@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head th:replace="layout::head">
+</head>
+<!-- ADD THE CLASS layout-top-nav TO REMOVE THE SIDEBAR. -->
+<body class="hold-transition skin-blue layout-top-nav theme2">
+	<div class="wrapper">
+
+		<header th:replace="layout::mainHeader"> </header>
+		<!-- Full Width Column -->
+		<div class="content-wrapper">
+			<div class="container">
+				<!-- Content Header (Page header) -->
+				<section th:replace="layout::contentHeader"></section>
+
+				<!-- Main content -->
+				<section class="content">
+					<div class="box box-info">
+						<div class="box-header with-border">
+							<h5 class="box-title list-title"></h5>
+							<a class="btn btn-flat btn-xs btn-info pull-right" th:href="@{/edit}">信息录入</a>
+						</div>
+						<!-- /.box-header -->
+						<div class="box-body">
+							<form class="form-horizontal" id="ztryQueryForm">
+								<div class="form-group">
+									<label for="inputEmail3" class="col-md-2 control-label">姓名</label>
+									<div class="col-md-2">
+										<input type="text" name="name" class="form-control" id="inputEmail3" placeholder="">
+									</div>
+									
+									<label for="idnum" class="col-md-2 col-lg-1 control-label">身份证号</label>
+									<div class="col-md-3">
+										<input type="text" name="idNum" class="form-control" id="idnum" placeholder="">
+									</div>
+									<div class="col-md-2">
+										<button type="button" onclick="queryEvent();return false;" class="btn btn-default">查询</button>
+									</div>
+								</div>
+							</form>
+
+							<div class="table-responsive no-padding">
+								<table class="table table-hover table-bordered" id="eventTable">
+									
+									<thead>
+										<tr class="bg-aqua">
+											<th style="height:2.2em;">追逃编号</th>
+											<th>姓名</th>
+											<th>性别</th>
+											<th>身份证号</th>
+											<th>事件时间</th>
+										</tr>
+									</thead>
+									<tbody>
+									</tbody>
+								</table>
+							</div>
+						</div>
+						<div class="box-footer clearfix">
+						</div>
+					</div>
+					<!-- /.box -->
+				</section>
+				<!-- /.content -->
+			</div>
+			<!-- /.container -->
+		</div>
+		<!-- /.content-wrapper -->
+		<footer class="main-footer" th:replace="layout::footer"> </footer>
+	</div>
+	<!-- ./wrapper -->
+	<script type="text/javascript">
+</script>
+</body>
+</html>
