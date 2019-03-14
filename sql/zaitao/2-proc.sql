@@ -24,6 +24,6 @@ CREATE  PROCEDURE  p_batch_compare()
       INSERT INTO y_compare_batch(batch_id, compare_time, ztry_count, matched_count)
       values(var_batch_id, var_now, var_ztry_count, var_match_count);
        
-  END
+  END &&
   
   DELIMITER ;
