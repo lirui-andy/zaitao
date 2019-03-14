@@ -50,8 +50,6 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 
 <script th:src="@{/dist/js/const.js}"></script>
 <script th:src="@{/dist/js/uep.js}"></script>
-<script th:src="@{/dist/js/ztryList.js}"></script>
-<script th:src="@{/dist/js/eventManage.js}"></script>
 </head>
 <!-- ADD THE CLASS layout-top-nav TO REMOVE THE SIDEBAR. -->
 <body class="hold-transition skin-blue layout-top-nav theme1">
@@ -59,7 +57,7 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 
   <header class="main-header" th:fragment="mainHeader">
     <nav class="navbar navbar-static-top">
-      <div class="container">
+      <div class="my-container">
         <div class="navbar-header">
           <div class="navbar-brand"><b>宜昌分局追逃查询系统</b></div>
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
@@ -94,25 +92,28 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
     </nav>
   </header>
   <!-- Full Width Column -->
+    <!-- =============================================== -->
+
+  <!-- Left side column. contains the sidebar -->
+  <aside class="main-sidebar" th:fragment="sidebar">
+    <!-- sidebar: style can be found in sidebar.less -->
+    <section class="sidebar">
+      <!-- sidebar menu: : style can be found in sidebar.less -->
+      <ul class="sidebar-menu" data-widget="tree">
+        <li><a th:href="@{/dbjg/zx}"><i class="fa fa-circle-o text-red"></i> <span>首页</span></a></li>
+        <li><a th:href="@{/ztry/list}"><i class="fa fa-circle-o text-yellow"></i> <span>追逃查询</span></a></li>
+        <li><a th:href="@{/cyxx/list}"><i class="fa fa-circle-o text-aqua"></i> <span>信息查询</span></a></li>
+        <li><a th:href="@{/dbjg/list}"><i class="fa fa-circle-o text-aqua"></i> <span>对比结果</span></a></li>
+        <li><a th:href="@{/sjdr}"><i class="fa fa-circle-o text-aqua"></i> <span>信息导入</span></a></li>
+      </ul>
+    </section>
+    <!-- /.sidebar -->
+  </aside>
+  
   <div class="content-wrapper">
-    <div class="container">
       <!-- Content Header (Page header) -->
       <section class="content-header" th:fragment="contentHeader">
-        <div class="pull-left small" id="navbar-widescreen">          <ul class="nav navbar-nav">
-            <li data-eventType=""><a href="/list?t=0">首页</a></li>
-            <li data-eventType="1"><a href="/list?t=1">未知名尸体</a></li>
-            <li data-eventType="2"><a href="/list?t=2">落水失踪人员</a></li>
-            <li data-eventType="3"><a href="/list?t=3">疑似落水失踪人员</a></li>
-            <li data-eventType="4"><a href="/list?t=4">外单位协查</a></li>
-            
-            <li th:if="${#authorization.expression('hasRole(''ROLE_EVENT_MAN'')')}"><a href="/event-manage">数据管理</a></li>
-            <li ><a href="javascript:$('#logout').submit();">登出</a><form class="form-inline" th:action="@{/logout}" method="POST" id="logout"></form></li>
-          </ul>
         
-        </div>  
-        <div class="pull-right">
-            <small th:inline="text"> <a th:href="@{/user/changepwd}">修改密码</a></small>
-        </div>
         <div class="clearfix"></div>
       </section>
 
@@ -133,18 +134,13 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
         <!-- /.box -->
       </section>
       <!-- /.content -->
-    </div>
-    <!-- /.container -->
   </div>
   <!-- /.content-wrapper -->
   <footer class="main-footer" th:fragment="footer">
-    <div class="container">
       <div class="pull-right hidden-xs">
         <b>Version</b> 1.0.0
       </div>
       <strong>Copyright &copy; 2018 <a href="javascript:">宜昌分局</a>.</strong> 版权所有
-    </div>
-    <!-- /.container -->
   </footer>
 </div>
 <!-- ./wrapper -->

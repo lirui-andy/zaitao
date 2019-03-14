@@ -1,5 +1,6 @@
 package com.yichang.uep.controller;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,15 +23,17 @@ public class ConstController {
 	@RequestMapping("/const")
     @ResponseBody
     List<YConst> all() {
-		List<YConst> list = constRepo.findAll();
-        return list;
+//		List<YConst> list = constRepo.findAll();
+//        return list;
+		return Collections.EMPTY_LIST;
     }
 	
 	@RequestMapping("/const/{group}")
     @ResponseBody
     List<YConst> list(@PathVariable("group")String group) {
-		List<YConst> list = constRepo.findByConstGroup(group);
-        return list;
+//		List<YConst> list = constRepo.findByConstGroup(group);
+//        return list;
+		return Collections.EMPTY_LIST;
     }
 
 

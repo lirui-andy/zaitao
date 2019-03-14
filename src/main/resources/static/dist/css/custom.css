@@ -1,6 +1,27 @@
 body{
 	font-family:"Source Sans Pro","Helvetica Neue",Helvetica,Arial,宋体,sans-serif;
 }
+.skin-blue .wrapper,  
+.skin-blue .left-side,
+.skin-blue .main-header .my-container {
+    background-color: rgba(40, 65, 120, .6);
+}
+.skin-blue .main-sidebar{
+	background:transparent;
+}
+.skin-blue .sidebar-menu>li:hover>a, .skin-blue .sidebar-menu>li.active>a, .skin-blue .sidebar-menu>li.menu-open>a {
+    color: #fff;
+    background: #1e282c80;
+}
+
+.main-sidebar{
+	padding-top: 100px;
+	width:150px;
+}
+.content-wrapper, .main-footer{
+	margin-left:150px;
+}
+
 
 .image-list{padding:0;}
 .image-list li {
@@ -27,7 +48,7 @@ body{
     text-overflow:ellipsis;
     text-align: center;
 }
-.navbar .container{
+.navbar .my-container{
 	position:relative;
 }
 .navbar-header{
@@ -50,14 +71,16 @@ body{
 	line-height: 1em;
 }
 
-.main-header .container {
+.main-header .my-container {
 	background-image: url(../img/jinghui.png);
 	background-repeat: no-repeat;
 	background-size: 80px;
 	background-position: 10px 10px;
 	min-height:100px;
 }
-
+.fixed .content-wrapper, .fixed .right-side{
+	padding-top:100px;
+}
 .form-control[readonly]{
 	background:transparent;
 }
@@ -77,6 +100,7 @@ body{
 
 .main-header .navbar{
 	background-color: #337ab7;
+	margin-left:0;
 }
 .theme1, .theme1 .main-header .navbar {
 	background: url(../img/bg1.jpg) no-repeat 0 -100px;

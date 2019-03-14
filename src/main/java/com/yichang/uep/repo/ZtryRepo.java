@@ -11,4 +11,6 @@ import com.yichang.uep.model.YZtry;
 public interface ZtryRepo extends JpaRepository<YZtry, String>, JpaSpecificationExecutor<YZtry> {
 
 //	List<YZtry> findBy
+	
+	int countAll();
 }

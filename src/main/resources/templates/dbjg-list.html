@@ -15,28 +15,14 @@
 
 				<!-- Main content -->
 				<section class="content">
+					<div class="callout callout-info">
+				        <p>最近对比完成于<span th:text="${compare}"></span>. 搜索追逃人员数据 30,100 条，共有 <span class="badge bg-red">5</span> 条对比结果。</p>
+				      </div>
 					<div class="box box-info">
 						<div class="box-header with-border">
 						</div>
 						<!-- /.box-header -->
 						<div class="box-body">
-							<form class="form-horizontal" id="ztryQueryForm">
-								<div class="form-group">
-									<label for="inputEmail3" class="col-md-2 control-label">姓名</label>
-									<div class="col-md-2">
-										<input type="text" name="name" class="form-control" id="inputEmail3" placeholder="">
-									</div>
-									
-									<label for="idnum" class="col-md-2 col-lg-1 control-label">身份证号</label>
-									<div class="col-md-3">
-										<input type="text" name="idNum" class="form-control" id="idnum" placeholder="输入完整身份证号">
-									</div>
-									<div class="col-md-2">
-										<button type="button" onclick="queryEvent();return false;" class="btn btn-default">查询</button>
-									</div>
-								</div>
-							</form>
-
 							<div class="table-responsive no-padding">
 								<table class="table table-hover table-bordered" id="eventTable">
 									
@@ -72,6 +58,5 @@
 	<script type="text/javascript">
 	</script>
 
-	<script th:src="@{/dist/js/ztryList.js}"></script>
 </body>
 </html>
