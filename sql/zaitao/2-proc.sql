@@ -1,5 +1,7 @@
 DELIMITER &&
 
+drop procedure  if exists  p_batch_compare &&
+
 CREATE  PROCEDURE  p_batch_compare()  
   MODIFIES SQL DATA  
   BEGIN  
@@ -21,8 +23,8 @@ CREATE  PROCEDURE  p_batch_compare()
       
       select count(1) into var_match_count from y_compare_detail where var_batch_id = var_batch_id;
       
-      INSERT INTO y_compare_batch(batch_id, compare_time, ztry_count, matched_count)
-      values(var_batch_id, var_now, var_ztry_count, var_match_count);
+      INSERT INTO y_compare_batch(batch_id, compare_time, end_time, ztry_count, matched_count)
+      values(var_batch_id, var_now, now(), var_ztry_count, var_match_count);
        
   END &&
   

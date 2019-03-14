@@ -67,6 +67,7 @@ create table `y_person`(
 create table `y_compare_batch`(
 `batch_id` int(11) NOT NULL AUTO_INCREMENT,
 `compare_time`  datetime default null,
+`end_time` datetime default null,
 `ztry_count` int DEFAULT NULL,
 `matched_count` int default null,
 PRIMARY KEY (`batch_id`)
