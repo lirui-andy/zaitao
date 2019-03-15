@@ -23,6 +23,10 @@ public class YCompareBatch implements Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="compare_time")
 	private Date compareTime;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name="end_time")
+	private Date endTime;
 
 	@Column(name="matched_count")
 	private int matchedCount;
@@ -64,5 +68,14 @@ public class YCompareBatch implements Serializable {
 	public void setZtryCount(int ztryCount) {
 		this.ztryCount = ztryCount;
 	}
+
+	public Date getEndTime() {
+		return endTime;
+	}
+
+	public void setEndTime(Date endTime) {
+		this.endTime = endTime;
+	}
+	
 
 }

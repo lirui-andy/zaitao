@@ -36,7 +36,7 @@ import com.yichang.uep.repo.EventRepo;
 import com.yichang.uep.utils.DateUtils;
 import com.yichang.uep.utils.StringUtils;
 
-@Component
+//@Component
 public class EventManageImpl implements EventManage {
 
 	@Autowired

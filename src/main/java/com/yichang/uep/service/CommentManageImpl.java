@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 import com.yichang.uep.model.YEventComment;
 import com.yichang.uep.repo.EventCommentRepo;
 
-@Component
+//@Component
 public class CommentManageImpl implements CommentManage {
 
 	@Autowired

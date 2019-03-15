@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head th:replace="layout::head">
+</head>
+<!-- ADD THE CLASS layout-top-nav TO REMOVE THE SIDEBAR. -->
+<body class="hold-transition skin-blue  theme2  sidebar-mini">
+	<div class="wrapper">
+
+		<header th:replace="layout::mainHeader"> </header>
+		<aside th:replace="layout::sidebar"></aside>
+		<!-- Full Width Column -->
+		<div class="content-wrapper">
+			<!-- Content Header (Page header) -->
+			<section th:replace="layout::contentHeader"></section>
+
+			<!-- Main content -->
+			<section class="content">
+				<div class="box box-info">
+					<div class="box-header with-border">在逃数据库导入</div>
+					<!-- /.box-header -->
+
+					<form id="eventEditForm" class="form" th:action="@{/import-ztry}"
+						method="POST" enctype="multipart/form-data">
+						<div class="box-body">
+							<div th:if="${faildList != null && faildList.size() > 0}"
+								class="alert alert-warning alert-dismissible">
+								<button type="button" class="close" data-dismiss="alert"
+									aria-hidden="true">×</button>
+								<h4>
+									<i class="icon fa fa-warning"></i> 以下各行导入失败，请检查：
+								</h4>
+								<p th:each="faild: ${faildList}">
+									第<span th:text="${faild.line}">0</span>行: 
+									<span th:text="${faild.reason}">-</span>
+								</p>
+							</div>
+							<div class="form-horizontal">
+								<div class="form-group">
+									<label for="input14-1" class="col-md-2 control-label">附件</label>
+									<div class="col-md-9 form-control-static">
+										<input type='file' name='file'>
+										<p class="help-block">选择从公安网下载的追逃名单解压后的文本文件，然后点击导入按钮。</p>
+									</div>
+								</div>
+							</div>
+
+						</div>
+						<div class="box-footer clearfix">
+							<div class="row">
+								<input type="submit" value="导入"
+									class="btn btn-primary col-md-2 col-md-offset-2" />
+							</div>
+						</div>
+					</form>
+				</div>
+				<!-- /.box -->
+			</section>
+			<!-- /.content -->
+			<!-- /.container -->
+		</div>
+		<!-- /.content-wrapper -->
+		<footer class="main-footer" th:replace="layout::footer"> </footer>
+	</div>
+	<!-- ./wrapper -->
+	<script type="text/javascript">
+		
+	</script>
+
+</body>
+</html>

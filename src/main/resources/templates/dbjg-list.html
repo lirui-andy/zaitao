@@ -16,8 +16,8 @@
 				<!-- Main content -->
 				<section class="content">
 					<div class="callout callout-info">
-				        <p>最近对比完成于<span th:text="${compare}"></span>. 搜索追逃人员数据 30,100 条，共有 <span class="badge bg-red">5</span> 条对比结果。</p>
-				      </div>
+				        <p>最近对比完成于<span th:text="${batch.compareTime}"></span>. 搜索追逃人员数据 <span th:text="${batch.ztryCount}"></span> 条，共有 <span class="badge bg-red" th:text="${batch.ztryCount}"></span> 条对比结果。</p>
+				    </div>
 					<div class="box box-info">
 						<div class="box-header with-border">
 						</div>

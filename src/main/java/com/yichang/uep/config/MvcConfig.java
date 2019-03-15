@@ -20,10 +20,7 @@ public class MvcConfig implements WebMvcConfigurer {
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/login").setViewName("login");
-        //最新对比信息（首页）
-        registry.addViewController("/zxdbjg").setViewName("zxdbjg");
-        //在逃人员列表查询
-        registry.addViewController("/ztry").setViewName("ztry");
+        registry.addViewController("/import-ztry").setViewName("import-ztry");
 	}
 
 	//Enable Spring Security taglibs in Thymeleaf

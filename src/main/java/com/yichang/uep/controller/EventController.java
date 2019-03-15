@@ -55,8 +55,8 @@ import com.yichang.uep.service.EventManage;
 import com.yichang.uep.utils.FileUtils;
 import com.yichang.uep.utils.StringUtils;
 
-@Controller
-@RequestMapping("event")
+//@Controller
+//@RequestMapping("event")
 public class EventController extends BaseController{
 	Logger logger = LoggerFactory.getLogger(EventController.class);
 	@Autowired
