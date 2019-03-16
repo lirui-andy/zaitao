@@ -24,4 +24,17 @@ public class DateUtils {
 		c.add(Calendar.DAY_OF_MONTH, days);
 		return c.getTime();
 	}
+	
+	/**
+	 * 保留日期，时间截断到0时0分0秒
+	 * @param d
+	 * @return
+	 */
+	public static Date truncate(Date d) {
+		Calendar c = Calendar.getInstance();
+		c.setTime(d);
+		c.clear();
+		c.set(d.getYear(), d.getMonth(), d.getDate());
+		return c.getTime();
+	}
 }

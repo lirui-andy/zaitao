@@ -15,19 +15,65 @@
 
 				<!-- Main content -->
 				<section class="content">
-					<div class="callout callout-info">
-				        <p>最近对比完成于<span th:text="${batch.compareTime}"></span>. 搜索追逃人员数据 <span th:text="${batch.ztryCount}"></span> 条，共有 <span class="badge bg-red" th:text="${batch.ztryCount}"></span> 条对比结果。</p>
-				    </div>
-					<div class="box box-info">
+					<div class="box box-primary">
 						<div class="box-header with-border">
+							<h4>对比结果查询</h4>
+						</div>
+						<!-- /.box-header -->
+						<div class="box-body">
+							<form class="form-horizontal" id="BatchListQueryForm">
+								<div class="form-group">
+									<label for="eventTime" class="col-md-2 control-label">对比日期</label>
+									<div class="col-md-5 ">
+										<div class="input-group">
+											<input type="text" name="dateRange" class="form-control" id="dateRange" data-default="" data-daterangepicker placeholder="">
+											<div class="input-group-addon" onclick="javascript:$('#dateRange').val('');">
+						                      <a class="fa fa-trash-o" href="javascript:" data-toggle="tooltip" data-original-title="点击清除输入的日期"></a>
+						                    </div>
+					                    </div>
+									</div>
+									<div class="col-md-2">
+										<button type="button" onclick="queryEvent();return false;" class="btn btn-default">查询</button>
+									</div>
+								</div>
+							</form>
+							<div class="table-responsive no-padding">
+								<table class="table table-hover table-bordered" id="BatchTable">
+									
+									<thead>
+										<tr class="bg-blue">
+											<th style="height:2.2em;">批次</th>
+											<th>对比时间</th>
+											<th>追逃人员数量</th>
+											<th>比中数量</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr th:each="batch : ${batchList}">
+											<td th:text="${batch.batchId}"></td>
+											<td th:text="${batch.compareTime}"></td>
+											<td th:text="${batch.ztryCount}"></td>
+											<td th:text="${batch.matchedCount}"></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+						<div class="box-footer clearfix">
+						</div>
+					</div>
+					<!-- /.box -->
+					<div class="box box-primary">
+						<div class="box-header with-border">
+							批次号: <span class="color-blue" id="batchId">0</span> , 比中 <span class="badge bg-red" id="bactchComparedCount">0</span> 人.
 						</div>
 						<!-- /.box-header -->
 						<div class="box-body">
 							<div class="table-responsive no-padding">
-								<table class="table table-hover table-bordered" id="eventTable">
+								<table class="table table-hover table-bordered" id="DetailTable">
 									
 									<thead>
-										<tr class="bg-aqua">
+										<tr class="bg-blue">
 											<th style="height:2.2em;">追逃编号</th>
 											<th>姓名</th>
 											<th>性别</th>
@@ -55,8 +101,7 @@
 		<footer class="main-footer" th:replace="layout::footer"> </footer>
 	</div>
 	<!-- ./wrapper -->
-	<script type="text/javascript">
-	</script>
+	<script th:src="@{/dist/js/dbjgList.js}"></script>
 
 </body>
 </html>

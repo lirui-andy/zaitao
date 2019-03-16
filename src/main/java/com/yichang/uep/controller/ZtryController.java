@@ -1,12 +1,16 @@
 package com.yichang.uep.controller;
 
+import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yichang.uep.dto.EventQueryVO;
+import com.yichang.uep.dto.MatchBatchQueryVO;
 import com.yichang.uep.dto.datatables.PageAdapter;
 import com.yichang.uep.dto.datatables.RequestAdapter;
 import com.yichang.uep.model.YCompareBatch;
@@ -23,6 +28,7 @@ import com.yichang.uep.model.YZtry;
 import com.yichang.uep.repo.CompareBatchRepo;
 import com.yichang.uep.repo.CompareDetailRepo;
 import com.yichang.uep.service.ZtryManage;
+import com.yichang.uep.utils.DateUtils;
 
 /**
  * 
@@ -40,6 +46,7 @@ public class ZtryController extends BaseController {
 	CompareBatchRepo compareBatchRepo;
 	@Autowired
 	CompareDetailRepo compareDetailRepo;
+	
 	/**
 	 * 追逃人员查询
 	 * @return
@@ -81,10 +88,36 @@ public class ZtryController extends BaseController {
 	 * @param model
 	 * @return
 	 */
-	@GetMapping("/dbjg/list")
-	public String dbjg(Model model) {
-		model.addAttribute("compare", "123");
-		model.addAttribute("list", Collections.EMPTY_LIST);
-		return "dbjg-list";
+	@PostMapping(path="/dbjg/search", consumes={"text/plain", "application/json"})
+	@ResponseBody
+	public PageAdapter<YCompareBatch>  dbjg(@RequestBody RequestAdapter<MatchBatchQueryVO> queryParam) {
+		Date today = DateUtils.truncate(Calendar.getInstance().getTime());
+		Date startDay = DateUtils.addDay(today, -30); //默认开始日期为30天前0点
+		Date endDay = DateUtils.addDay(today, 1);//默认结束日期为明天0点
+		
+		if(queryParam != null && queryParam.getCondition()!=null) {
+			//如果指定日期范围，则根据日期范围查询
+			String dateStr = queryParam.getCondition().getDateRange();
+			if(dateStr != null && dateStr.length() > 20) {
+				startDay = DateUtils.parse(dateStr.substring(0, 10));
+				endDay = DateUtils.parse(dateStr.substring(dateStr.length() - 10));
+			}
+		}
+		Page<YCompareBatch> page = compareBatchRepo.findInDate(startDay, endDay, 
+				PageRequest.of(queryParam.getPage(), 
+						queryParam.getLength() < 1 ? 1 : queryParam.getLength(), 
+						Direction.DESC, 
+						"batchId"));
+		return PageAdapter.create(page, queryParam.getDraw());
+	}
+
+	@PostMapping(path="/dbjg/details", consumes={"text/plain", "application/json"})
+	@ResponseBody
+	public PageAdapter<YCompareDetail>  dbjgDetails(@RequestBody RequestAdapter<MatchBatchQueryVO> queryParam) {
+		
+		Page<YCompareDetail> page = compareDetailRepo.findByBatchIdOrderByCompareDetailIdDesc(queryParam.getCondition().getBatchId(), 
+				PageRequest.of(queryParam.getPage(), 
+						queryParam.getLength() < 1 ? 1 : queryParam.getLength()));
+		return PageAdapter.create(page, queryParam.getDraw());
 	}
 }
