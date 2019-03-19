@@ -33,20 +33,24 @@ CREATE TABLE `y_ztry` (
   KEY `idxztry_1` (`sfzh`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='追逃人员表';
 
+truncate table `y_imp_crew`;
+select count(1) from y_imp_crew;
+select * from y_imp_crew limit 0, 100
+
 create table `y_imp_crew`(
 `imp_crew_id` int(11) NOT NULL AUTO_INCREMENT,
-`ship_crew_id` varchar(30) DEFAULT NULL,
-`crew_id` varchar(30) DEFAULT NULL,
+`ship_crew_id` int(11) DEFAULT NULL,
+`crew_id` int(11) DEFAULT NULL,
 `id_card` varchar(30) DEFAULT NULL,
 `crewname` varchar(50) DEFAULT NULL,
-`ship_id` varchar(30) DEFAULT NULL,
-`onship_duty` varchar(30) DEFAULT NULL,
-`crew_status` varchar(30) DEFAULT NULL,
-`start_date` varchar(30) DEFAULT NULL,
-`end_date` varchar(30) DEFAULT NULL,
-`remark` varchar(100) DEFAULT NULL,
+`ship_id` int(11) DEFAULT NULL,
+`onship_duty` varchar(10) DEFAULT NULL,
+`crew_status` int(11) DEFAULT NULL,
+`start_date` date DEFAULT NULL,
+`end_date` date DEFAULT NULL,
+`remark` varchar(300) DEFAULT NULL,
 `operuser` varchar(30) DEFAULT NULL,
-`opertime` varchar(30) DEFAULT NULL,
+`opertime` datetime DEFAULT NULL,
 `impuser` varchar(30) default null, 
 `imptime` datetime default null, 
   PRIMARY KEY (`imp_crew_id`),

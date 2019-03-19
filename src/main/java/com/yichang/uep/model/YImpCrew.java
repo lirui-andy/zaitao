@@ -21,15 +21,16 @@ public class YImpCrew implements Serializable {
 	private int impCrewId;
 
 	@Column(name="crew_id")
-	private String crewId;
+	private int crewId;
 
 	@Column(name="crew_status")
-	private String crewStatus;
+	private int crewStatus;
 
 	private String crewname;
 
+	@Temporal(TemporalType.DATE)
 	@Column(name="end_date")
-	private String endDate;
+	private Date endDate;
 
 	@Column(name="id_card")
 	private String idCard;
@@ -42,20 +43,22 @@ public class YImpCrew implements Serializable {
 	@Column(name="onship_duty")
 	private String onshipDuty;
 
-	private String opertime;
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date opertime;
 
 	private String operuser;
 
 	private String remark;
 
 	@Column(name="ship_crew_id")
-	private String shipCrewId;
+	private int shipCrewId;
 
 	@Column(name="ship_id")
-	private String shipId;
+	private int shipId;
 
+	@Temporal(TemporalType.DATE)
 	@Column(name="start_date")
-	private String startDate;
+	private Date startDate;
 
 	public YImpCrew() {
 	}
@@ -68,19 +71,19 @@ public class YImpCrew implements Serializable {
 		this.impCrewId = impCrewId;
 	}
 
-	public String getCrewId() {
+	public int getCrewId() {
 		return this.crewId;
 	}
 
-	public void setCrewId(String crewId) {
+	public void setCrewId(int crewId) {
 		this.crewId = crewId;
 	}
 
-	public String getCrewStatus() {
+	public int getCrewStatus() {
 		return this.crewStatus;
 	}
 
-	public void setCrewStatus(String crewStatus) {
+	public void setCrewStatus(int crewStatus) {
 		this.crewStatus = crewStatus;
 	}
 
@@ -92,11 +95,11 @@ public class YImpCrew implements Serializable {
 		this.crewname = crewname;
 	}
 
-	public String getEndDate() {
+	public Date getEndDate() {
 		return this.endDate;
 	}
 
-	public void setEndDate(String endDate) {
+	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
 	}
 
@@ -132,11 +135,11 @@ public class YImpCrew implements Serializable {
 		this.onshipDuty = onshipDuty;
 	}
 
-	public String getOpertime() {
+	public Date getOpertime() {
 		return this.opertime;
 	}
 
-	public void setOpertime(String opertime) {
+	public void setOpertime(Date opertime) {
 		this.opertime = opertime;
 	}
 
@@ -156,27 +159,27 @@ public class YImpCrew implements Serializable {
 		this.remark = remark;
 	}
 
-	public String getShipCrewId() {
+	public int getShipCrewId() {
 		return this.shipCrewId;
 	}
 
-	public void setShipCrewId(String shipCrewId) {
+	public void setShipCrewId(int shipCrewId) {
 		this.shipCrewId = shipCrewId;
 	}
 
-	public String getShipId() {
+	public int getShipId() {
 		return this.shipId;
 	}
 
-	public void setShipId(String shipId) {
+	public void setShipId(int shipId) {
 		this.shipId = shipId;
 	}
 
-	public String getStartDate() {
+	public Date getStartDate() {
 		return this.startDate;
 	}
 
-	public void setStartDate(String startDate) {
+	public void setStartDate(Date startDate) {
 		this.startDate = startDate;
 	}
 

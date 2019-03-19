@@ -7,10 +7,23 @@ import java.util.Date;
 
 public class DateUtils {
 	static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+	static SimpleDateFormat sdf_dash_time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	static SimpleDateFormat sdf_slash4 = new SimpleDateFormat("MM/dd/yyyy");
 	
 	public static Date parse(String s) {
 		try {
-			return sdf.parse(s);
+			if(s.indexOf("-") > -1 && s.indexOf(":") > -1)
+				return sdf_dash_time.parse(s);
+			else if(s.indexOf("/") > -1) {
+				String[] ss = s.split("/");
+				if(ss[2].length() == 2) {
+					ss[2]="20"+ss[2];
+					return sdf_slash4.parse(String.format("%1$s/%2$s/%3$s", ss[0], ss[1], ss[2]));
+				}
+				return sdf_slash4.parse(s);
+			}
+			else
+				return sdf.parse(s);
 		} catch (ParseException e) {
 			e.printStackTrace();
 			return null;

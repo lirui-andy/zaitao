@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -16,13 +15,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.yichang.uep.dto.ImportFaildLine;
-import com.yichang.uep.exception.ImportException;
 import com.yichang.uep.model.YZtry;
 import com.yichang.uep.repo.ZtryRepo;
 import com.yichang.uep.service.ZtryExtractor;
@@ -34,9 +30,9 @@ import com.yichang.uep.service.ZtryExtractor;
  */
 
 @Controller
-public class ImportController extends BaseController {
+public class ImportZtryController extends BaseController {
 
-	Logger logger = LoggerFactory.getLogger(ImportController.class);
+	Logger logger = LoggerFactory.getLogger(ImportZtryController.class);
 	
 	@Autowired
 	ZtryRepo ztryRepo;
