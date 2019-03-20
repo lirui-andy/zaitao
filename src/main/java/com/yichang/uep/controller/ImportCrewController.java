@@ -3,7 +3,6 @@ package com.yichang.uep.controller;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,10 +20,13 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.autumn.pxlsreader.SimpleXlsReader;
 import com.autumn.pxlsreader.XlsReaderCallback;
+import com.yichang.uep.controller.ImportCrewController.CrewImportCallback;
 import com.yichang.uep.dto.ImportFaildLine;
+import com.yichang.uep.exception.ImportException;
 import com.yichang.uep.model.YImpCrew;
 import com.yichang.uep.repo.CrewRepo;
 import com.yichang.uep.utils.DateUtils;
+import com.yichang.uep.utils.NumberUtils;
 
 /**
  * 
@@ -59,21 +61,29 @@ public class ImportCrewController extends BaseController {
 				String name = f.getOriginalFilename();
 				logger.info(name+"  ,size="+size);
 				try {
-					faildList.addAll(importData(f.getInputStream()));
+					CrewImportCallback imp = importData(f.getInputStream());
+					faildList.addAll(imp.faildList);
+					model.addAttribute("faildList", faildList);
+					model.addAttribute("successCount", imp.successCount);
 				} catch (IOException e) {
 					faildList.add(new ImportFaildLine(0, "文件读取失败，请重试。"));
 					logger.error(e.getMessage(), e);
-				}
+				} catch (ImportException e) {
+					faildList.add(new ImportFaildLine(0, e.getMessage()));
+					logger.error(e.getMessage(), e);
+				} catch (Exception e) {
+					faildList.add(new ImportFaildLine(0, "导入失败。"+e.getMessage()));
+					logger.error(e.getMessage(), e);
+				} 
 		});
-		model.addAttribute("faildList", faildList);
 		return "import-crew";
 	}
 	
-	private List<ImportFaildLine> importData(InputStream fileIn) throws IOException{
+	private CrewImportCallback importData(InputStream fileIn) throws IOException{
 		crewRepo.deleteAllInBatch();
 		CrewImportCallback callback = new CrewImportCallback();
 		SimpleXlsReader.newInstance().readXls(fileIn, callback);
-		return callback.faildList;
+		return callback;
 //		return Collections.EMPTY_LIST;
 	}
 
@@ -102,7 +112,7 @@ public class ImportCrewController extends BaseController {
 			if("SHIP_CREW_ID".equals(value.toString())) {
 				dataRowIndex = row + 1;
 			}
-			inDataRow = row >= dataRowIndex;
+			inDataRow = (row >= dataRowIndex);
 			if(inDataRow) {
 				if(rowData == null) {
 					rowData = new HashMap<String, String>();
@@ -132,13 +142,13 @@ public class ImportCrewController extends BaseController {
 
 		private YImpCrew translateRowData(Map<String, String> map) {
 			YImpCrew crew = new YImpCrew();
-			crew.setShipCrewId(Integer.parseInt(map.get("SHIP_CREW_ID")));
-			crew.setCrewId(Integer.parseInt(map.get("CREW_ID")));
+			crew.setShipCrewId(NumberUtils.parseIntOrNull(map.get("SHIP_CREW_ID")));
+			crew.setCrewId(NumberUtils.parseIntOrNull(map.get("CREW_ID")));
 			crew.setIdCard(map.get("ID_CARD"));
 			crew.setCrewname(map.get("CREWNAME"));
-			crew.setShipId(Integer.parseInt(map.get("SHIP_ID")));
+			crew.setShipId(NumberUtils.parseIntOrNull(map.get("SHIP_ID")));
 			crew.setOnshipDuty(map.get("ONSHIP_DUTY"));
-			crew.setCrewStatus(Integer.parseInt(map.get("CREW_STATUS")));
+			crew.setCrewStatus(NumberUtils.parseIntOrNull(map.get("CREW_STATUS")));
 			crew.setStartDate(DateUtils.parse(map.get("START_DATE")));
 			crew.setEndDate(DateUtils.parse(map.get("END_DATE")));
 			crew.setRemark(map.get("REMARK"));

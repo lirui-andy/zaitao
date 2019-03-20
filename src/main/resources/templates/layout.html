@@ -36,6 +36,7 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 
 <script th:src="@{/bower_components/jquery/dist/jquery.min.js}"></script>
 <script th:src="@{/bower_components/bootstrap/dist/js/bootstrap.min.js}"></script>
+<script th:src="@{/bower_components/bootstrap/dist/js/bootstrap.min.js}"></script>
 <script th:src="@{/bower_components/jquery-slimscroll/jquery.slimscroll.min.js}"></script>
 <script th:src="@{/bower_components/fastclick/lib/fastclick.js}"></script>
 <script th:src="@{/plugins/input-mask/jquery.inputmask.js}"></script>
@@ -48,11 +49,12 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <script th:src="@{/plugins/iCheck/icheck.min.js}"></script>
 <script th:src="@{/bower_components/jquery-validation/dist/jquery.validate.min.js}"></script>
 
+<script th:src="@{/dist/js/adminlte.min.js}"></script>
 <script th:src="@{/dist/js/const.js}"></script>
 <script th:src="@{/dist/js/uep.js}"></script>
 </head>
 <!-- ADD THE CLASS layout-top-nav TO REMOVE THE SIDEBAR. -->
-<body class="hold-transition skin-blue layout-top-nav theme1">
+<body class=" skin-blue layout-top-nav theme1">
 <div class="wrapper">
 
   <header class="main-header" th:fragment="mainHeader">
@@ -60,9 +62,10 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
       <div class="my-container">
         <div class="navbar-header">
           <div class="navbar-brand"><b>宜昌分局追逃查询系统</b></div>
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
-            <i class="fa fa-bars"></i>
-          </button>
+          <div class="navbar-custom-menu">
+        
+          <a role="button" href="#" class="sidebar-toggle" data-toggle="push-menu"></a>
+     	 </div>
         </div>
 		<div class="clearfix"></div>
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -105,6 +108,7 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
         <li><a th:href="@{/cyxx/list}"><i class="fa fa-circle-o text-aqua"></i> <span>信息查询</span></a></li>
         <li><a th:href="@{/dbjg-list}"><i class="fa fa-circle-o text-aqua"></i> <span>对比结果</span></a></li>
         <li><a th:href="@{/import-ztry}"><i class="fa fa-circle-o text-aqua"></i> <span>追逃库导入</span></a></li>
+        <li><a th:href="@{/import-crew}"><i class="fa fa-circle-o text-aqua"></i> <span>船员库导入</span></a></li>
       </ul>
     </section>
     <!-- /.sidebar -->

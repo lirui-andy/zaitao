@@ -18,13 +18,13 @@ public class YImpCrew implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="imp_crew_id")
-	private int impCrewId;
+	private Integer impCrewId;
 
 	@Column(name="crew_id")
-	private int crewId;
+	private Integer crewId;
 
 	@Column(name="crew_status")
-	private int crewStatus;
+	private Integer crewStatus;
 
 	private String crewname;
 
@@ -51,10 +51,10 @@ public class YImpCrew implements Serializable {
 	private String remark;
 
 	@Column(name="ship_crew_id")
-	private int shipCrewId;
+	private Integer shipCrewId;
 
 	@Column(name="ship_id")
-	private int shipId;
+	private Integer shipId;
 
 	@Temporal(TemporalType.DATE)
 	@Column(name="start_date")
@@ -63,27 +63,27 @@ public class YImpCrew implements Serializable {
 	public YImpCrew() {
 	}
 
-	public int getImpCrewId() {
+	public Integer getImpCrewId() {
 		return this.impCrewId;
 	}
 
-	public void setImpCrewId(int impCrewId) {
+	public void setImpCrewId(Integer impCrewId) {
 		this.impCrewId = impCrewId;
 	}
 
-	public int getCrewId() {
+	public Integer getCrewId() {
 		return this.crewId;
 	}
 
-	public void setCrewId(int crewId) {
+	public void setCrewId(Integer crewId) {
 		this.crewId = crewId;
 	}
 
-	public int getCrewStatus() {
+	public Integer getCrewStatus() {
 		return this.crewStatus;
 	}
 
-	public void setCrewStatus(int crewStatus) {
+	public void setCrewStatus(Integer crewStatus) {
 		this.crewStatus = crewStatus;
 	}
 
@@ -159,19 +159,19 @@ public class YImpCrew implements Serializable {
 		this.remark = remark;
 	}
 
-	public int getShipCrewId() {
+	public Integer getShipCrewId() {
 		return this.shipCrewId;
 	}
 
-	public void setShipCrewId(int shipCrewId) {
+	public void setShipCrewId(Integer shipCrewId) {
 		this.shipCrewId = shipCrewId;
 	}
 
-	public int getShipId() {
+	public Integer getShipId() {
 		return this.shipId;
 	}
 
-	public void setShipId(int shipId) {
+	public void setShipId(Integer shipId) {
 		this.shipId = shipId;
 	}
 

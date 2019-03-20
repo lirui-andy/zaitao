@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.LinkedList;
 
+import org.apache.poi.UnsupportedFileFormatException;
 import org.apache.poi.hssf.eventusermodel.FormatTrackingHSSFListener;
 import org.apache.poi.hssf.eventusermodel.HSSFEventFactory;
 import org.apache.poi.hssf.eventusermodel.HSSFListener;
@@ -20,6 +21,8 @@ import org.apache.poi.hssf.record.RowRecord;
 import org.apache.poi.hssf.record.SSTRecord;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.apache.poi.ss.usermodel.Workbook;
+
+import com.yichang.uep.exception.ImportException;
 
 /**
  * 简易xls格式读取器。
@@ -62,7 +65,12 @@ public class SimpleXlsReader implements HSSFListener {
 			this.callback = new NoopReaderCallback();
 		}
 		// create a new org.apache.poi.poifs.filesystem.Filesystem
-		POIFSFileSystem poifs = new POIFSFileSystem(in);
+		POIFSFileSystem poifs;
+		try {
+			poifs = new POIFSFileSystem(in);
+		} catch (UnsupportedFileFormatException e) {
+			throw new ImportException("文件格式不正确。请使用xls格式的文件");
+		}
 		// get the Workbook (excel part) stream in a InputStream
 		InputStream din = poifs.createDocumentInputStream("Workbook");
 		

@@ -5,7 +5,7 @@
 <head th:replace="layout::head">
 </head>
 <!-- ADD THE CLASS layout-top-nav TO REMOVE THE SIDEBAR. -->
-<body class="hold-transition skin-blue  theme2  sidebar-mini">
+<body class="skin-blue  theme2  sidebar-mini">
 	<div class="wrapper">
 
 		<header th:replace="layout::mainHeader"> </header>
@@ -18,7 +18,7 @@
 			<!-- Main content -->
 			<section class="content">
 				<div class="box box-info">
-					<div class="box-header with-border">在逃数据库导入</div>
+					<div class="box-header with-border"><h5>在逃数据库导入</h5></div>
 					<!-- /.box-header -->
 
 					<form id="eventEditForm" class="form" th:action="@{/import-ztry}"
